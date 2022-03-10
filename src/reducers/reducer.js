@@ -1,4 +1,3 @@
-import produce from 'immer'
 import * as actiontypes from '../actiontypes/actiontypes'
 
 let id = 0;
@@ -16,15 +15,25 @@ export default function reducer(state = [], action) {
                         
                 ];
             case actiontypes.TASK_FINISHED: 
-            return produce(state, newState => {
-                const todo = newState.find(todo => todo.id === id)
-                todo.done = !todo.done;
-            })
+              return      [
+                ...state.slice(0,action.payload.id-1),
+                {...state[action.payload.id-1],
+                    isComplete: true
+                    },
+                    ...state.slice(action.payload.id),
+            ]
 
             case actiontypes.TASK_DELETED:
                 return state.filter( task => task.id !== action.payload.id);
             case actiontypes.TASK_MODIFIED:
-                return
+                return [
+                    ...state.slice(0,action.payload.id-1),
+                    {...state[action.payload.id-1],
+                         description: action.payload.description,
+                         deadline: action.payload.date
+                        },
+                        ...state.slice(action.payload.id),
+                ]
             default:
                 return state
         }

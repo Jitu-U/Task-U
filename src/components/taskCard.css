@@ -1,0 +1,47 @@
+.card-container{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    max-height: 80px;
+}
+
+.content{
+    background: none;
+    text-align: left;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 5px;
+    margin: none;
+}
+
+.content h4{
+    margin: none;
+    /*background-color: red;*/
+    font-weight: normal;
+    font-size: large;
+
+}
+.content p{
+    margin: none;
+}
+
+.actions{
+    padding: 5px;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.card-btn{
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.card-btn:hover{
+    transform: scale(1.3);
+    transition: all 50ms ease-out;
+}

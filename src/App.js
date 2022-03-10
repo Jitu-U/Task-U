@@ -1,16 +1,13 @@
+/* eslint-disable react/react-in-jsx-scope */
+
 import './App.css';
 import store from './store'
-import { taskAdded, taskDeleted } from './actions/actions'
-import TaskCard from './taskCard'
+import { taskAdded } from './actions/actions'
+import TaskCard from './components/taskCard'
 import { useState } from 'react'
- 
+import {useSelector} from 'react-redux'
 
 
-store.dispatch(taskAdded('Mello'));
-store.dispatch(taskAdded('Mello'));
-console.log(store.getState());
-
-store.dispatch(taskDeleted(1));
 
 
 console.log(store.getState());
@@ -32,14 +29,13 @@ function App() {
       <section className='tasks'>
         <div className='pending-tasks'>
           <h3>Your Tasks</h3>
-          { store.getState().map( task => (<TaskCard key={task.id} description={task.description} date={task.date}>
+          { useSelector(store => store.filter( task => task.isComplete === false)).map( task => (<TaskCard key={task.id} id={task.id} description={task.description} date={task.date}>
             </TaskCard>)) }
         </div>
         <div className='finished-task'>
           <h3>Finished Tasks</h3>
-        </div>
-        <div className='deleted-task'>
-          <h3>Deleted Tasks</h3>
+          { useSelector(store => store.filter( task => task.isComplete === true)).map( task => (<TaskCard key={task.id} id={task.id} description={task.description} date={task.date}>
+            </TaskCard>)) }
         </div>
       </section>
 

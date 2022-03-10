@@ -19,3 +19,22 @@ export const taskDeleted = id => ({
             id: id
         }
 })
+
+//3. to modify a task
+
+export const taskModified = (id, date, description )=> ({
+    type: actiontypes.TASK_MODIFIED,
+    payload: {
+        id: id,
+        date: date,
+        description: description
+    }
+})
+
+//4. to Complete a task
+export const taskFinished = (id) => ({
+    type: actiontypes.TASK_FINISHED,
+    payload: {
+        id: id
+    }
+})
