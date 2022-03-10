@@ -9,6 +9,13 @@
   justify-content: center;
 }
 
+@media screen and (max-width: 600px) {
+  .App{
+    grid-template-columns: 100%;
+  }
+}
+
+
 .header{
   position: sticky;
   top: 0;
@@ -59,11 +66,16 @@ form{
     flex-direction: column;
 }
 
+.task-form{
+  position: sticky;
+}
+
 .task-form h3{
   align-items: center;
   justify-content: center;
   text-align: center;
 }
+
 
 .task-form h3 .sticker{
   margin-right: 10px;

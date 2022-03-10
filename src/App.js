@@ -20,7 +20,11 @@ function App() {
   const [date, setDate] = useState(todayDate);
 
   function handleSubmit(){
+    console.log(date);
     store.dispatch(taskAdded(task,date));
+    
+    setTask('');
+    setDate(todayDate);
     console.log(store.getState())
   }
 
@@ -35,12 +39,12 @@ function App() {
       <section className='tasks'>
         <div className='pending-tasks'>
           <h3>Your Tasks <BsListTask size={30} className='sticker'/></h3>
-          { useSelector(store => store.filter( task => task.isComplete === false)).map( task => (<TaskCard key={task.id} id={task.id} description={task.description} date={task.date}>
+          { useSelector(store => store.filter( task => task.isComplete === false)).map( task => (<TaskCard key={task.id} id={task.id} description={task.description} date={task.deadline}>
             </TaskCard>)) }
         </div>
         <div className='finished-task'>
           <h3>Finished Tasks<VscTasklist size={30} className='sticker'/></h3>
-          { useSelector(store => store.filter( task => task.isComplete === true)).map( task => (<TaskCard key={task.id} id={task.id} description={task.description} date={task.date}>
+          { useSelector(store => store.filter( task => task.isComplete === true)).map( task => (<TaskCard key={task.id} id={task.id} description={task.description} date={task.deadline}>
             </TaskCard>)) }
         </div>
       </section>
