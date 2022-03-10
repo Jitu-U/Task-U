@@ -6,13 +6,13 @@ export default function reducer(state = [], action) {
         switch(action.type){
             case actiontypes.TAST_ADDED:
                 return [
-                    ...state,{
+                    {
                         id:  ++id,
                         description: action.payload.description,
                         deadline:  action.payload.date,
                         isComplete: false,
-                    }
-                        
+                    },
+                    ...state
                 ];
             case actiontypes.TASK_FINISHED: 
               return      [

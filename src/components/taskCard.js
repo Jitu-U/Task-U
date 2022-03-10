@@ -54,8 +54,9 @@ function taskCard(props) {
           placeholder="what is your task" 
           onChange={ (e) => setDate(e.target.value)}></input>
       </div>
-      <div className='actions'>
-          <BiCheckSquare olor='black' size={30} className='card-btn' onClick={handleModifyBtn}>Submit</BiCheckSquare>
+      <div className='actions submit'>
+        Submit
+          <BiCheckSquare color='green' size={30} className='card-btn' onClick={handleModifyBtn}>Submit</BiCheckSquare>
       </div>
   </div>
     ): (
