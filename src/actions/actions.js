@@ -2,6 +2,14 @@ import * as actiontypes from '../actiontypes/actiontypes'
 
 ///------Action creators
 
+export const taskLoaded = (data) => ({
+    type: actiontypes.TASK_LOADED,
+    payload: {
+        data: data
+    }
+})
+
+
 //1. to add Task
 export const taskAdded = (description,date) => ({
     type: actiontypes.TAST_ADDED,

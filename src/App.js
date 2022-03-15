@@ -2,9 +2,9 @@
 
 import './App.css';
 import store from './store'
-import { taskAdded } from './actions/actions'
+import { taskAdded, taskLoaded } from './actions/actions'
 import TaskCard from './components/taskCard'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {useSelector} from 'react-redux'
 import { MdAddTask } from 'react-icons/md'
 import {BsListTask} from 'react-icons/bs'
@@ -12,6 +12,7 @@ import {VscTasklist} from  'react-icons/vsc'
 
 console.log(store.getState());
 
+const URL= 'http://localhost:8000';
 
 function App() {
 
@@ -22,11 +23,26 @@ function App() {
   function handleSubmit(){
     console.log(date);
     store.dispatch(taskAdded(task,date));
-    
+    fetch(`${URL}/api/create`, {
+      method: "POST",
+    body: JSON.stringify({
+      task,
+      date
+    })
+    });
     setTask('');
     setDate(todayDate);
     console.log(store.getState())
   }
+
+  useEffect( async function () {
+    await fetch(`${URL}/api/tasks`,{mode: 'cors'})
+    .then(response => response.json())
+    .then(data =>{ 
+      console.log(data);
+      store.dispatch(taskLoaded(data));
+    });
+    },[])
 
   return (
     <>

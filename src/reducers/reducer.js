@@ -1,13 +1,15 @@
 import * as actiontypes from '../actiontypes/actiontypes'
 
-let id = 0;
+
 
 export default function reducer(state = [], action) {
         switch(action.type){
+            case actiontypes.TASK_LOADED:
+                return action.payload.data;
             case actiontypes.TAST_ADDED:
                 return [
                     {
-                        id:  ++id,
+                        id: state.length+1 ,
                         description: action.payload.description,
                         deadline:  action.payload.date,
                         isComplete: false,
