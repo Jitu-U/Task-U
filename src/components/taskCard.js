@@ -8,6 +8,7 @@ import { BiTask,BiTaskX,BiCheckSquare } from 'react-icons/bi'
 
 function taskCard(props) {
 
+  const URL= 'http://localhost:8000';
   const [edit, setEdit] = useState(false);
 
   const [description, setDescription ] = useState(props.description);
@@ -17,6 +18,16 @@ function taskCard(props) {
   // Detete a Task 
   function handleDelete(){
   store.dispatch(taskDeleted(props.id));
+    //Updating in backend 
+    fetch(`${URL}/api/delete`, {
+      method: 'post',
+      mode: 'cors',
+      body: {
+        id: props.id,
+      }
+    })
+    .then(res => res.json())
+    .then( res => console.log(res));
   console.log(store.getState());
   }
 
@@ -29,6 +40,18 @@ function taskCard(props) {
 // Modify the task
   function handleModifyBtn(){
     store.dispatch(taskModified(props.id, description, date));
+    //Updating in backend 
+    fetch(`${URL}/api/modify`, {
+      method: 'post',
+      mode: 'cors',
+      body: {
+        id: props.id,
+        description: description,
+        deadline: date
+      }
+    })
+    .then(res => res.json())
+    .then( res => console.log(res));
     setEdit(!edit)
     console.log(store.getState());
   }
@@ -37,6 +60,16 @@ function taskCard(props) {
   // Finish a Task
   function handleComplete(){
     store.dispatch(taskFinished(props.id));
+    //Updating in backend 
+    fetch(`${URL}/api/complete`, {
+      method: 'post',
+      mode: 'cors',
+      body: {
+        id: props.id,
+      }
+    })
+    .then(res => res.json())
+    .then( res => console.log(res));
    // console.log(store.getState()[props.id].isCompelete)
   }
   return (
