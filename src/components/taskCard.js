@@ -60,16 +60,20 @@ function taskCard(props) {
   // Finish a Task
   function handleComplete(){
     store.dispatch(taskFinished(props.id));
+    console.log(props._id);
     //Updating in backend 
-    fetch(`${URL}/api/complete`, {
+    fetch(`${URL}/api/complete/${props.id}`, {
       method: 'post',
-      mode: 'cors',
-      body: {
-        id: props.id,
-      }
+      mode: 'no-cors',
     })
     .then(res => res.json())
-    .then( res => console.log(res));
+    .then( res =>{
+      alert(res);
+    })
+    .catch( err => {
+      alert('☹️ Failed to complete yout request');
+      console.log('ERROR: ', err.message);
+    });
    // console.log(store.getState()[props.id].isCompelete)
   }
   return (
