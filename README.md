@@ -1,6 +1,12 @@
-# Getting Started with Create React App
+# Intro
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is wrapped into redux store. Single page application
+using  `react-redux`
+and `redux`
+
+
+
+
 
 ## Available Scripts
 
