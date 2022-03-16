@@ -19,15 +19,13 @@ function taskCard(props) {
   function handleDelete(){
   store.dispatch(taskDeleted(props.id));
     //Updating in backend 
-    fetch(`${URL}/api/delete`, {
+    fetch(`${URL}/api/delete/${props.id}`, {
       method: 'post',
-      mode: 'cors',
-      body: {
-        id: props.id,
-      }
+      mode: 'no-cors'
     })
     .then(res => res.json())
-    .then( res => console.log(res));
+    .then( res => console.log(res))
+    .catch( err => console.error(err));
   console.log(store.getState());
   }
 
@@ -43,7 +41,7 @@ function taskCard(props) {
     //Updating in backend 
     fetch(`${URL}/api/modify`, {
       method: 'post',
-      mode: 'cors',
+      mode: 'no-cors',
       body: {
         id: props.id,
         description: description,
