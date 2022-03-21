@@ -21,11 +21,13 @@ function App() {
   const [date, setDate] = useState(todayDate);
 
   function handleSubmit() {
+    
     const id = store.getState().length+1;
+
     console.log(store.getState().length);
     store.dispatch(taskAdded(task, date));
     fetch(`${URL}/api/create`, {
-      mode: 'no-cors',
+      mode: 'cors',
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -46,7 +48,7 @@ function App() {
 
   //Load initial Tasks 
   useEffect(async () => {
-    await fetch(`${URL}/api/tasks`, { mode: 'cors' })
+    await fetch(`${URL}/api/tasks`,{mode: 'cors'})
       .then(response => response.json())
       .then(data => {
         console.log(data);
@@ -68,12 +70,16 @@ function App() {
         <section className='tasks'>
           <div className='pending-tasks'>
             <h3>Your Tasks <BsListTask size={30} className='sticker' /></h3>
-            {useSelector(store => store.filter(task => task.isComplete === false)).map(task => (<TaskCard key={task.id} _id={task._id} id={task.id} description={task.description} date={task.deadline}>
+            {useSelector(store => store
+              .filter(task => task.isComplete === false))
+              .map(task => (<TaskCard key={task.id} _id={task._id} id={task.id} description={task.description} date={task.deadline}>
             </TaskCard>))}
           </div>
           <div className='finished-task'>
             <h3>Finished Tasks<VscTasklist size={30} className='sticker' /></h3>
-            {useSelector(store => store.filter(task => task.isComplete === true)).map(task => (<TaskCard key={task.id} _id={task._id} id={task.id} description={task.description} date={task.deadline}>
+            {useSelector(store => store
+            .filter(task => task.isComplete === true))
+            .map(task => (<TaskCard key={task.id} _id={task._id} id={task.id} description={task.description} date={task.deadline}>
             </TaskCard>))}
           </div>
         </section>
