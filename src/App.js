@@ -22,9 +22,9 @@ function App() {
 
   function handleSubmit() {
     
-    const id = store.getState().length+1;
+    const id = store.getState().length ? (store.getState().slice(-1)[0].id +1) : 1;
 
-    console.log(store.getState().length);
+    console.log(id);
     store.dispatch(taskAdded(task, date));
     fetch(`${URL}/api/create`, {
       mode: 'cors',
@@ -72,14 +72,14 @@ function App() {
             <h3>Your Tasks <BsListTask size={30} className='sticker' /></h3>
             {useSelector(store => store
               .filter(task => task.isComplete === false))
-              .map(task => (<TaskCard key={task.id} _id={task._id} id={task.id} description={task.description} date={task.deadline}>
+              .map(task => (<TaskCard key={task._id}  id={task.id} description={task.description} date={task.deadline}>
             </TaskCard>))}
           </div>
           <div className='finished-task'>
             <h3>Finished Tasks<VscTasklist size={30} className='sticker' /></h3>
             {useSelector(store => store
             .filter(task => task.isComplete === true))
-            .map(task => (<TaskCard key={task.id} _id={task._id} id={task.id} description={task.description} date={task.deadline}>
+            .map(task => (<TaskCard key={task._id}  id={task.id} description={task.description} date={task.deadline}>
             </TaskCard>))}
           </div>
         </section>
