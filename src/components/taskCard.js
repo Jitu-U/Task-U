@@ -20,8 +20,8 @@ function taskCard(props) {
     store.dispatch(taskDeleted(props.id));
     //Updating in backend 
     fetch(`${URL}/api/delete/${props.id}`, {
-      method: 'delete',
-      mode: 'cors'
+      method: 'post',
+      mode: 'cors',
     })
       .then(res => res.json())
       .then(res => console.log(res))
@@ -36,41 +36,44 @@ function taskCard(props) {
   }
 
   // Modify the task
-  function handleModifyBtn() {
+  async function handleModifyBtn() {
     //Updating in backend 
-    fetch(`${URL}/api/modify/${props.id}`, {
+    const data = {
+      description: description,
+      deadline: date
+    }
+    console.log(JSON.stringify(data))
+    await fetch(`${URL}/api/modify/${props.id}`, {
       method: 'post',
       mode: 'cors',
-      body: JSON.stringify({
-        id: props.id,
-        description: description,
-        deadline: date
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
     })
-      .then(res => res.json())
       .then(res => {
-        store.dispatch(taskModified(props.id, description, date));
+        if(res.ok){
+          store.dispatch(taskModified(props.id, description, date));
+        }
+        
         console.log(res);
-      });
+      }).catch( err => console.error("ERROR: ", err));
     setEdit(!edit)
     console.log(store.getState());
   }
 
 
   // Finish a Task
-  function handleComplete() {
+  async function handleComplete() {
     //Updating in backend 
-    fetch(`${URL}/api/complete/${props.id}`, {
+    await fetch(`${URL}/api/complete/${props.id}`, {
       method: 'post',
       mode: 'cors',
     })
-      .then(res => res.json())
+    .then(res => res.json)
       .then(res => {
         store.dispatch(taskFinished(props.id));
-        alert(res);
+        console.log(res.msg);
       })
       .catch(err => {
-        alert('☹️ Failed to complete yout request');
         console.log('ERROR: ', err.message);
       });
   }
